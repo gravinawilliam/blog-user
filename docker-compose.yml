@@ -1,0 +1,14 @@
+version: '3.7'
+
+services:
+  pg_blog_client:
+    container_name: PG_BLOG_CLIENT
+    image: 'bitnami/postgresql:latest'
+    environment:
+      POSTGRESQL_PASSWORD: ${DB_DEFAULT_PASSWORD}
+      POSTGRESQL_USERNAME: ${DB_DEFAULT_USERNAME}
+      POSTGRESQL_DATABASE: ${DB_DEFAULT_DATABASE}
+      POSTGRESQL_TIMEZONE: America/SAO_PAULO
+    ports:
+      - "${DB_DEFAULT_PORT}:5432"
+    restart: unless-stopped
