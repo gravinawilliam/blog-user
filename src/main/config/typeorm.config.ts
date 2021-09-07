@@ -1,5 +1,5 @@
-import envConfig from '@/src/main/config/env.config';
 import { ConnectionOptions } from 'typeorm';
+import envConfig from './env.config';
 
 const { dataBaseDefault, nodeEnv } = envConfig;
 
