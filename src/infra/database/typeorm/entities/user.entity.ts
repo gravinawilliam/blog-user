@@ -1,4 +1,4 @@
-import { UserModel } from '@/src/domain/models/user.model';
+import { UserModel } from '@domain/models/user.model';
 import { Entity, Column } from 'typeorm';
 import { BaseEntity } from './_base.entity';
 
