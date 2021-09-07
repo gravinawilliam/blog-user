@@ -12,9 +12,13 @@
     "baseUrl": "./",
     "incremental": true,
     "paths": {
-      "@/*": [
-        "*"
-      ]
+      "@application/*":["./src/application/*"],
+      "@dtos/*":["./src/domain/dtos/*"],
+      "@domain/*":["./src/domain/*"],
+      "@shared/*":["./src/shared/*"],
+      "@fakes/*":["./src/fakes/*"],
+      "@infra/*":["./src/infra/*"],
+      "@main/*":["./src/main/*"]
     }
   }
 }
