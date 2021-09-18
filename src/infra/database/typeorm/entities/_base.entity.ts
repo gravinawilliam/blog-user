@@ -1,4 +1,3 @@
-import { BaseModel } from '../../../../domain/models/_base.model';
 import {
   DeleteDateColumn,
   UpdateDateColumn,
@@ -6,6 +5,8 @@ import {
   PrimaryColumn,
 } from 'typeorm';
 import * as uuid from 'uuid';
+
+import { BaseModel } from '@models/_base.model';
 
 export class BaseEntity implements BaseModel {
   @PrimaryColumn('uuid')

@@ -10,6 +10,7 @@ import {
 @Catch()
 export class AllExceptionsFilter implements ExceptionFilter {
   private logger: Logger = new Logger('ExceptionFilter');
+
   catch(exception: any, host: ArgumentsHost) {
     const ctx = host.switchToHttp();
     const request = ctx.getRequest();
@@ -35,7 +36,7 @@ export class AllExceptionsFilter implements ExceptionFilter {
     });
     console.log('====================================');
 
-    //? Precisa ter esse response pra não ficar dando timeout
+    // ? Precisa ter esse response pra não ficar dando timeout
     const res =
       exception instanceof HttpException
         ? exception.getResponse()
@@ -44,6 +45,6 @@ export class AllExceptionsFilter implements ExceptionFilter {
             message: 'Internal Server Error',
           };
 
-    response.status(status).json(res);
+    return response.status(status).json(res);
   }
 }

@@ -1,3 +1,5 @@
+/* eslint-disable no-use-before-define */
+/* eslint-disable max-classes-per-file */
 export type Either<F, S> = Left<F, S> | Right<F, S>;
 
 export class Left<F, S> {

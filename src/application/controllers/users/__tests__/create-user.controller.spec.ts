@@ -1,22 +1,26 @@
 import { CreateUserUsecase } from '@application/use-cases/users/create-user.usecase';
-import { CreateUserValidator } from '@application/validators/users/create-user.validator';
 import { RequiredFieldsValidator } from '@application/validators/_shared/required-fields.validator';
+import { CreateUserValidator } from '@application/validators/users/create-user.validator';
+
 import { IPasswordEncryption } from '@domain/providers/encryption/password-encryption.provider';
 import { IUuidGenerator } from '@domain/providers/uuidGenerator/uuid-generator.provider';
 import { ICreateUserRepository } from '@domain/repositories/users/create-user.repository';
 import { IFindEmailUserRepository } from '@domain/repositories/users/find-email-user.repository';
 import { ICreateUserUsecase } from '@domain/use-cases/users/create-user.usecase';
-import { ICreateUserValidator } from '@domain/validators/users/create-user.validator';
 import { IEmailValidator } from '@domain/validators/_shared/email.validator';
 import { IPasswordValidator } from '@domain/validators/_shared/password.validator';
 import { IRequiredFieldsValidator } from '@domain/validators/_shared/required-fields.validator';
+import { ICreateUserValidator } from '@domain/validators/users/create-user.validator';
+
 import { FakeUserRepository } from '@fakes/database/repositories/users.fake.repository';
 import { FakePasswordEncryption } from '@fakes/providers/encryption/password-encryption.fake.provider';
 import { FakeUuidGenerator } from '@fakes/providers/uuid/uuid-generator.fake.provider';
 import { FakeEmailValidator } from '@fakes/validators/email.fake.validator';
 import { FakePasswordValidator } from '@fakes/validators/password.fake.validator';
+
 import { IController } from '@shared/interfaces/controller.interface';
 import { HttpStatusCode } from '@shared/utils/http-status-code';
+
 import { CreateUserController } from '../create-user.controller';
 
 let createUserController: IController;
@@ -69,7 +73,7 @@ describe('CreateUserController', () => {
     const user = await createUserController.handle({
       body: {
         name: 'Rita Marlene Gabrielly Cardoso',
-        email: 'invalidEmail', //? invalid email
+        email: 'invalidEmail', // ? invalid email
         password: '3k8EG923iA',
       },
     });
@@ -81,7 +85,7 @@ describe('CreateUserController', () => {
       body: {
         name: 'Rita Marlene Gabrielly Cardoso',
         email: 'gabriellycardoso@heineken.com.br',
-        password: '22', //? invalid password
+        password: '22', // ? invalid password
       },
     });
     expect(user.statusCode).toBe(HttpStatusCode.BAD_REQUEST);

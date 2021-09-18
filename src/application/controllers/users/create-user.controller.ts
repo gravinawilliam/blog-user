@@ -1,5 +1,6 @@
 import { ICreateUserUsecase } from '@domain/use-cases/users/create-user.usecase';
 import { ICreateUserValidator } from '@domain/validators/users/create-user.validator';
+
 import { IController } from '@shared/interfaces/controller.interface';
 import { IHttpRequest } from '@shared/interfaces/http-request.interface';
 import { IHttpResponse } from '@shared/interfaces/http-response.interface';

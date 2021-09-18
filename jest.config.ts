@@ -1,5 +1,6 @@
 import type { Config } from '@jest/types';
 import { pathsToModuleNameMapper } from 'ts-jest/utils';
+
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const { compilerOptions } = require('./tsconfig.json');
 

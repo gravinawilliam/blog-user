@@ -1,9 +1,11 @@
 import { IPasswordEncryption } from '@domain/providers/encryption/password-encryption.provider';
 import { ICreateUserRepository } from '@domain/repositories/users/create-user.repository';
 import { ICreateUserUsecase } from '@domain/use-cases/users/create-user.usecase';
+
 import { FakeUserRepository } from '@fakes/database/repositories/users.fake.repository';
 import { FakePasswordEncryption } from '@fakes/providers/encryption/password-encryption.fake.provider';
 import { FakeUuidGenerator } from '@fakes/providers/uuid/uuid-generator.fake.provider';
+
 import { CreateUserUsecase } from '../create-user.usecase';
 
 let createUserUseCase: ICreateUserUsecase;

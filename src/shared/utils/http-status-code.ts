@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 export enum HttpStatusCode {
   CONTINUE = 100,
   SWITCHING_PROTOCOLS = 101,

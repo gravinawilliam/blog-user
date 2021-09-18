@@ -1,14 +1,16 @@
 import { IFindEmailUserRepository } from '@domain/repositories/users/find-email-user.repository';
-import { ICreateUserValidator } from '@domain/validators/users/create-user.validator';
+import { IEmailValidator } from '@domain/validators/_shared/email.validator';
+import { IPasswordValidator } from '@domain/validators/_shared/password.validator';
 import { IRequiredFieldsValidator } from '@domain/validators/_shared/required-fields.validator';
+import { ICreateUserValidator } from '@domain/validators/users/create-user.validator';
+
 import { ICreateUserDTO } from '@dtos/users/create-user.dto';
+
+import { ConflictParamError } from '@shared/errors/conflict-param.error';
+import { InvalidParamError } from '@shared/errors/invalid-param.error';
 import { IHttpResponse } from '@shared/interfaces/http-response.interface';
 import { Either, left, right } from '@shared/utils/either';
-import { InvalidParamError } from '@shared/errors/invalid-param.error';
 import { badRequest, conflict } from '@shared/utils/http-response';
-import { ConflictParamError } from '@shared/errors/conflict-param.error';
-import { IPasswordValidator } from '@domain/validators/_shared/password.validator';
-import { IEmailValidator } from '@domain/validators/_shared/email.validator';
 
 export class CreateUserValidator implements ICreateUserValidator {
   constructor(

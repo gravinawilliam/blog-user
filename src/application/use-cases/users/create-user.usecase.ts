@@ -1,6 +1,7 @@
 import { IPasswordEncryption } from '@domain/providers/encryption/password-encryption.provider';
 import { ICreateUserRepository } from '@domain/repositories/users/create-user.repository';
 import { ICreateUserUsecase } from '@domain/use-cases/users/create-user.usecase';
+
 import { ICreateUserResponseDTO } from '@dtos/users/create-user-response.dto';
 import { ICreateUserDTO } from '@dtos/users/create-user.dto';
 

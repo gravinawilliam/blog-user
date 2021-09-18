@@ -1,4 +1,5 @@
 import { IPasswordValidator } from '@domain/validators/_shared/password.validator';
+
 import { InvalidParamError } from '@shared/errors/invalid-param.error';
 import { IHttpResponse } from '@shared/interfaces/http-response.interface';
 import { Either, left, right } from '@shared/utils/either';
