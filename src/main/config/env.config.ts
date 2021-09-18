@@ -11,6 +11,9 @@ const envConfig = {
     password: process.env.DB_DEFAULT_PASSWORD,
     database: process.env.DB_DEFAULT_DATABASE,
   },
+  sentry: {
+    dsn: process.env.SENTRY_DSN,
+  },
 };
 
 export default envConfig;
