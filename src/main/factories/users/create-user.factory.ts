@@ -10,6 +10,8 @@ import { PasswordValidator } from '@infra/validators/password.validator';
 
 import { IController } from '@shared/interfaces/controller.interface';
 
+import { CreateUserTransformer } from '../../../application/transformers/users/create-user.transformer';
+
 export const makeCreateUserController = (): IController => {
   const requiredFieldsValidator = new RequiredFieldsValidator();
   const usersRepository = new UsersTypeormRepository();
@@ -22,9 +24,11 @@ export const makeCreateUserController = (): IController => {
     emailValidator,
     passwordValidator,
   );
-  const createUserUsecase = new CreateUserUsecase(
-    usersRepository,
-    passwordEncryption,
+  const createUserUsecase = new CreateUserUsecase(usersRepository);
+  const createUserTransformer = new CreateUserTransformer(passwordEncryption);
+  return new CreateUserController(
+    createUserUsecase,
+    createUserValidator,
+    createUserTransformer,
   );
-  return new CreateUserController(createUserUsecase, createUserValidator);
 };
