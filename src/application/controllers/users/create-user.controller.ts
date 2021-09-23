@@ -1,3 +1,5 @@
+/* eslint-disable prettier/prettier */
+import { ICreateUserTransformer } from '@domain/transformers/users/create-user.transformer';
 import { ICreateUserUsecase } from '@domain/use-cases/users/create-user.usecase';
 import { ICreateUserValidator } from '@domain/validators/users/create-user.validator';
 
@@ -10,7 +12,8 @@ export class CreateUserController implements IController {
   constructor(
     private readonly createUserUseCase: ICreateUserUsecase,
     private readonly createUserValidator: ICreateUserValidator,
-  ) {}
+    private readonly createUserTransformer: ICreateUserTransformer,
+  ) { }
 
   async handle(httpRequest: IHttpRequest): Promise<IHttpResponse> {
     const { email, name, password } = httpRequest.body;
@@ -29,12 +32,26 @@ export class CreateUserController implements IController {
       };
     }
 
-    const account = await this.createUserUseCase.execute({
-      email,
-      name,
+    const userTransformed = await this.createUserTransformer.execute({
       password,
     });
 
-    return created(account);
+    if (userTransformed.isLeft()) {
+      const { body, statusCode } = userTransformed.value;
+      return {
+        body,
+        statusCode,
+      };
+    }
+
+    const { passwordTransformed } = userTransformed.value;
+
+    const createdUser = await this.createUserUseCase.execute({
+      name,
+      email,
+      password: passwordTransformed
+    });
+
+    return created(createdUser);
   }
 }
