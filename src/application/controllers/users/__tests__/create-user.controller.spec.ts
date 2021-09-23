@@ -6,6 +6,7 @@ import { IPasswordEncryption } from '@domain/providers/encryption/password-encry
 import { IUuidGenerator } from '@domain/providers/uuidGenerator/uuid-generator.provider';
 import { ICreateUserRepository } from '@domain/repositories/users/create-user.repository';
 import { IFindEmailUserRepository } from '@domain/repositories/users/find-email-user.repository';
+import { ICreateUserTransformer } from '@domain/transformers/users/create-user.transformer';
 import { ICreateUserUsecase } from '@domain/use-cases/users/create-user.usecase';
 import { IEmailValidator } from '@domain/validators/_shared/email.validator';
 import { IPasswordValidator } from '@domain/validators/_shared/password.validator';
@@ -21,6 +22,7 @@ import { FakePasswordValidator } from '@fakes/validators/password.fake.validator
 import { IController } from '@shared/interfaces/controller.interface';
 import { HttpStatusCode } from '@shared/utils/http-status-code';
 
+import { CreateUserTransformer } from '../../../transformers/users/create-user.transformer';
 import { CreateUserController } from '../create-user.controller';
 
 let createUserController: IController;
@@ -32,6 +34,7 @@ let fakeUuidGenerator: IUuidGenerator;
 let fakeEmailValidator: IEmailValidator;
 let fakePasswordValidator: IPasswordValidator;
 let requiredFieldsValidator: IRequiredFieldsValidator;
+let createUserTransformer: ICreateUserTransformer;
 
 describe('CreateUserController', () => {
   beforeEach(() => {
@@ -41,19 +44,18 @@ describe('CreateUserController', () => {
     fakeEmailValidator = new FakeEmailValidator();
     fakePasswordValidator = new FakePasswordValidator();
     fakeUsersRepository = new FakeUserRepository(fakeUuidGenerator);
-    createUserUseCase = new CreateUserUsecase(
-      fakeUsersRepository,
-      fakePasswordEncryption,
-    );
+    createUserUseCase = new CreateUserUsecase(fakeUsersRepository);
     createUserValidator = new CreateUserValidator(
       requiredFieldsValidator,
       fakeUsersRepository,
       fakeEmailValidator,
       fakePasswordValidator,
     );
+    createUserTransformer = new CreateUserTransformer(fakePasswordEncryption);
     createUserController = new CreateUserController(
       createUserUseCase,
       createUserValidator,
+      createUserTransformer,
     );
   });
 
