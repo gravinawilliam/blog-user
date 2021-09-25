@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import {
   Catch,
   ArgumentsHost,
@@ -9,8 +10,9 @@ import {
 
 @Catch()
 export class AllExceptionsFilter implements ExceptionFilter {
-  private logger: Logger = new Logger('ExceptionFilter');
+  // private logger: Logger = new Logger('ExceptionFilter');
 
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   catch(exception: any, host: ArgumentsHost) {
     const ctx = host.switchToHttp();
     const request = ctx.getRequest();
@@ -20,9 +22,9 @@ export class AllExceptionsFilter implements ExceptionFilter {
         ? exception.getStatus()
         : HttpStatus.INTERNAL_SERVER_ERROR;
 
-    this.logger.error(exception);
-    console.log('====================================');
-    console.log({
+    Logger.error(exception);
+    Logger.error('====================================');
+    Logger.error({
       error: {
         statusCode: status,
         path: request.url,
@@ -34,7 +36,7 @@ export class AllExceptionsFilter implements ExceptionFilter {
             : exception,
       },
     });
-    console.log('====================================');
+    Logger.error('====================================');
 
     // ? Precisa ter esse response pra não ficar dando timeout
     const res =
