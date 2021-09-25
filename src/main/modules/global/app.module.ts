@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
+import { TerminusModule } from '@nestjs/terminus';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { SentryModule } from '@ntegral/nestjs-sentry';
 import { LogLevel } from '@sentry/types';
@@ -9,9 +10,11 @@ import envConfig from '@main/config/env.config';
 import typeormConfig from '../../config/typeorm.config';
 import { CreateUserRoute } from '../users/routes/create-user.route';
 import { CreateUserModule } from '../users/users.module';
+import { HealthRoute } from './health.route';
 
 @Module({
   imports: [
+    TerminusModule,
     SentryModule.forRoot({
       debug: true,
       dsn: envConfig.sentry.dsn,
@@ -23,7 +26,7 @@ import { CreateUserModule } from '../users/users.module';
     TypeOrmModule.forRoot(typeormConfig),
     CreateUserModule,
   ],
-  controllers: [CreateUserRoute],
+  controllers: [CreateUserRoute, HealthRoute],
   providers: [],
 })
 export class AppModule {}
