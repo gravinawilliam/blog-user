@@ -20,6 +20,7 @@ module.exports = {
     '@typescript-eslint/no-explicit-any': 'off',
     'prettier/prettier': 'error',
     '@typescript-eslint/camelcase': 'off',
+    '@typescript-eslint/explicit-module-boundary-types': 'off',
     'no-useless-constructor': 'off',
     'import/no-extraneous-dependencies': 'off',
     'import/prefer-default-export': 'off',
