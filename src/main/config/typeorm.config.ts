@@ -4,7 +4,7 @@ import envConfig from './env.config';
 
 const { dataBaseDefault, nodeEnv } = envConfig;
 
-const dir = nodeEnv === 'TEST' || nodeEnv === 'DEV' ? 'src' : 'dist/src';
+const dir = nodeEnv === 'TEST' ? 'src' : 'dist/src';
 const extension = nodeEnv === 'TEST' ? 'ts' : 'js';
 
 const typeormConfig: ConnectionOptions = {
