@@ -8,9 +8,8 @@ import { LogLevel } from '@sentry/types';
 import envConfig from '@main/config/env.config';
 
 import typeormConfig from '../../config/typeorm.config';
-import { CreateUserRoute } from '../users/routes/create-user.route';
+import { AuthenticationsModule } from '../authentications/authentications.module';
 import { CreateUserModule } from '../users/users.module';
-import { HealthRoute } from './health.route';
 
 @Module({
   imports: [
@@ -25,8 +24,9 @@ import { HealthRoute } from './health.route';
     ConfigModule.forRoot(),
     TypeOrmModule.forRoot(typeormConfig),
     CreateUserModule,
+    AuthenticationsModule,
   ],
-  controllers: [CreateUserRoute, HealthRoute],
+  controllers: [],
   providers: [],
 })
 export class AppModule {}
