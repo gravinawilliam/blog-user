@@ -6,7 +6,7 @@ import { ICreateUserValidator } from '@domain/validators/users/create-user.valid
 import { IController } from '@shared/interfaces/controller.interface';
 import { IHttpRequest } from '@shared/interfaces/http-request.interface';
 import { IHttpResponse } from '@shared/interfaces/http-response.interface';
-import { created } from '@shared/utils/http-response';
+import { created } from '@shared/utils/http-response'
 
 export class CreateUserController implements IController {
   constructor(
@@ -25,11 +25,7 @@ export class CreateUserController implements IController {
     });
 
     if (userValidated.isLeft()) {
-      const { body, statusCode } = userValidated.value;
-      return {
-        body,
-        statusCode,
-      };
+      return userValidated.value;
     }
 
     const userTransformed = await this.createUserTransformer.execute({
@@ -37,11 +33,7 @@ export class CreateUserController implements IController {
     });
 
     if (userTransformed.isLeft()) {
-      const { body, statusCode } = userTransformed.value;
-      return {
-        body,
-        statusCode,
-      };
+      return userTransformed.value;
     }
 
     const { passwordTransformed } = userTransformed.value;
