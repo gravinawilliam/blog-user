@@ -9,6 +9,7 @@ export const adapterRoute = (controller: IController) => {
     const httpRequest: IHttpRequest = {
       body: request.body,
       params: request.params,
+      headers: request.headers,
     };
 
     const { body, statusCode } = await controller.handle(httpRequest);
