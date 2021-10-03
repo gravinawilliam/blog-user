@@ -36,3 +36,8 @@ export const notFound = (error: Error): IHttpResponse => ({
   statusCode: HttpStatusCode.NOT_FOUND,
   body: error,
 });
+
+export const unauthorized = (error: Error): IHttpResponse => ({
+  statusCode: HttpStatusCode.UNAUTHORIZED,
+  body: error,
+});
