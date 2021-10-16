@@ -22,7 +22,10 @@
     "test:cov": "jest --passWithNoTests --noStackTrace --runInBand --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js --config src/main/config/typeorm.config.ts"
+    "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js --config src/main/config/typeorm.config.ts",
+    "tests": "NODE_ENV=test jest -i --detectOpenHandles",
+    "test:coverage": "NODE_ENV=test jest -i --coverage",
+    "sonar": "node sonar-project.js"
   },
   "dependencies": {
     "@nestjs/common": "^8.0.0",
@@ -66,13 +69,20 @@
     "eslint-plugin-prettier": "^3.3.0",
     "husky": "^4.3.8",
     "jest": "27.0.6",
+    "jest-sonar-reporter": "^2.0.0",
     "lint-staged": "^10.5.3",
     "prettier": "^2.3.2",
-    "supertest": "^6.1.3",
+    "sonarqube-scanner": "^2.8.1",
+    "supertest": "^6.1.6",
     "ts-jest": "^27.0.3",
     "ts-loader": "^9.2.3",
     "ts-node": "^10.0.0",
     "tsconfig-paths": "^3.10.1",
     "typescript": "^4.3.5"
+  },
+  "jestSonar": {
+    "reportPath": "coverage",
+    "reportFile": "test-reporter.xml",
+    "indent": 4
   }
 }
