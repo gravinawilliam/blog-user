@@ -1,6 +1,6 @@
 import 'dotenv/config';
 
-const envConfig = {
+export const envConfig = {
   nodeEnv: process.env.NODE_ENV,
   port: process.env.API_PORT || 3000,
   dataBaseDefault: {
@@ -14,6 +14,15 @@ const envConfig = {
   sentry: {
     dsn: process.env.SENTRY_DSN,
   },
+  sonar: {
+    login: process.env.SONAR_LOGIN,
+    password: process.env.SONAR_PASSWORD,
+  },
+  jwt: {
+    secret: process.env.JWT_APP_SECRET,
+    expiresIn: process.env.JWT_EXPIRES_IN,
+    algorithm: process.env.JWT_ALGORITHM,
+    issuer: process.env.JWT_ISSUER,
+  },
+  tryLimit: parseInt(process.env.VALIDATION_LOGIN_ATTEMPTS_TRY_LIMIT, 10),
 };
-
-export default envConfig;
