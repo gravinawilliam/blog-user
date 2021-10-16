@@ -1,6 +1,7 @@
 import { ConnectionOptions } from 'typeorm';
+import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 
-import envConfig from './env.config';
+import { envConfig } from './env.config';
 
 const { dataBaseDefault, nodeEnv } = envConfig;
 
@@ -19,8 +20,9 @@ const typeormConfig: ConnectionOptions = {
   migrations: [`./${dir}/infra/database/typeorm/migrations/*.${extension}`],
   synchronize: false,
   cli: {
-    migrationsDir: `./${dir}/infra/database/typeorm/migrations/`,
+    migrationsDir: `./src/infra/database/typeorm/migrations/`,
   },
+  namingStrategy: new SnakeNamingStrategy(),
 } as ConnectionOptions;
 
 export default typeormConfig;
