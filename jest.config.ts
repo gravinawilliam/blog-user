@@ -19,6 +19,7 @@ const config: Config.InitialOptions = {
     '<rootDir>/src/application/use-cases/**/*.usecase.ts',
     '<rootDir>/src/application/validators/**/*.validator.ts',
   ],
+  testResultsProcessor: 'jest-sonar-reporter',
   coverageDirectory: 'coverage',
   coverageReporters: ['text-summary', 'lcov'],
   moduleDirectories: ['node_modules', 'src'],
