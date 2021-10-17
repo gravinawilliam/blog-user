@@ -1,24 +1,21 @@
-import { Entity, Column } from 'typeorm';
+import { Entity, Column, OneToMany } from 'typeorm';
 
 import { UserModel } from '@models/user.model';
 
 import { BaseEntity } from './_base.entity';
+import { UserAccessLogEntity } from './user-access-log.entity';
 
 @Entity('users')
 export class UserEntity extends BaseEntity implements UserModel {
-  @Column({
-    name: 'name',
-  })
+  @Column()
   name: string;
 
-  @Column({
-    name: 'email',
-    unique: true,
-  })
+  @Column()
   email: string;
 
-  @Column({
-    name: 'password',
-  })
+  @Column()
   password: string;
+
+  @OneToMany(() => UserAccessLogEntity, accessLog => accessLog.user)
+  logsAccess: UserAccessLogEntity[];
 }
