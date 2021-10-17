@@ -9,7 +9,7 @@ import {
   ITokenPayloadDTO,
 } from '@dtos/providers/tokens/tokens.dto';
 
-import authConfig from '@main/config/auth.config';
+import { authConfig } from '@main/config/auth.config';
 
 import { IHttpResponse } from '@shared/interfaces/http-response.interface';
 import { Either, right, left } from '@shared/utils/either';
