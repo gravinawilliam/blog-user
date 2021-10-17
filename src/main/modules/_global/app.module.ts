@@ -5,11 +5,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { SentryModule } from '@ntegral/nestjs-sentry';
 import { LogLevel } from '@sentry/types';
 
-import envConfig from '@main/config/env.config';
+import { envConfig } from '@main/config/env.config';
 
 import typeormConfig from '../../config/typeorm.config';
 import { AuthenticationsModule } from '../authentications/authentications.module';
-import { ReviwersModule } from '../reviwers/reviwers.module';
 import { CreateUserModule } from '../users/users.module';
 
 @Module({
@@ -26,7 +25,6 @@ import { CreateUserModule } from '../users/users.module';
     TypeOrmModule.forRoot(typeormConfig),
     CreateUserModule,
     AuthenticationsModule,
-    ReviwersModule,
   ],
   controllers: [],
   providers: [],
