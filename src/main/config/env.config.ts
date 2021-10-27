@@ -1,6 +1,11 @@
 import 'dotenv/config';
 
 export const envConfig = {
+  url: {
+    internalMicroServices: {
+      dataReplication: process.env.URL_BASE_DATA_REPLICATION,
+    },
+  },
   nodeEnv: process.env.NODE_ENV,
   port: process.env.API_PORT || 3000,
   dataBaseDefault: {
