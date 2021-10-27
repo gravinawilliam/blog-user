@@ -1,6 +1,7 @@
 # Image source
-FROM node:14-alpine
+FROM node:14.18-alpine
 
+# RUN npm install -g @nestjs/cli --silent
 RUN apk add --no-cache bash
 
 # Docker working directory
