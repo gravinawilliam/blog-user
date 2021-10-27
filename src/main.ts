@@ -1,12 +1,24 @@
+import { Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
-import envConfig from './main/config/env.config';
-import { AppModule } from './main/modules/global/app.module';
+import * as helmet from 'helmet';
+
+import { AllExceptionsFilter } from '@main/errors/all-exception.filter';
+
+import { envConfig } from './main/config/env.config';
+import { AppModule } from './main/modules/_global/app.module';
+
+const { port, nodeEnv } = envConfig;
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
-  await app.listen(envConfig.port || 3000, () => {
-    if (envConfig.nodeEnv !== 'PROD') {
-      console.log(`✅ OK ${envConfig.port || 3000}`);
+  const app = await NestFactory.create(AppModule, { cors: true });
+  // somewhere in your initialization file
+  app.use(helmet());
+  app.useGlobalFilters(new AllExceptionsFilter());
+  app.enableCors();
+
+  await app.listen(port || 3000, () => {
+    if (nodeEnv !== 'PROD') {
+      Logger.log(`✅ OK ${port || 3000}`);
     }
   });
 }
