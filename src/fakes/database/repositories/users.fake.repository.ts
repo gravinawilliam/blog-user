@@ -1,4 +1,3 @@
-import { UserModel } from '@domain/models/user.model';
 import { IUuidGenerator } from '@domain/providers/uuidGenerator/uuid-generator.provider';
 import { ICreateUserRepository } from '@domain/repositories/users/create-user.repository';
 import { IDeleteUserRepository } from '@domain/repositories/users/delete-user.repository';
@@ -6,6 +5,8 @@ import { IFindByIdUserRepository } from '@domain/repositories/users/find-by-id-u
 import { IFindEmailUserRepository } from '@domain/repositories/users/find-email-user.repository';
 
 import { ICreateUserDTO } from '@dtos/users/create-user.dto';
+
+import { UserModel } from '@models/user.model';
 
 export class FakeUserRepository
   implements

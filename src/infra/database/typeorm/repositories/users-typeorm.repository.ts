@@ -1,12 +1,13 @@
 import { getRepository, Repository } from 'typeorm';
 
-import { UserModel } from '@domain/models/user.model';
 import { ICreateUserRepository } from '@domain/repositories/users/create-user.repository';
 import { IDeleteUserRepository } from '@domain/repositories/users/delete-user.repository';
 import { IFindByIdUserRepository } from '@domain/repositories/users/find-by-id-user.repository';
 import { IFindEmailUserRepository } from '@domain/repositories/users/find-email-user.repository';
 
 import { ICreateUserDTO } from '@dtos/users/create-user.dto';
+
+import { UserModel } from '@models/user.model';
 
 import { UserEntity } from '../entities/user.entity';
 
