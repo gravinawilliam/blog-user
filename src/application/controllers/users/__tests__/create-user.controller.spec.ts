@@ -1,7 +1,9 @@
+import { CreateUserTransformer } from '@application/transformers/users/create-user.transformer';
 import { CreateUserUsecase } from '@application/use-cases/users/create-user.usecase';
 import { RequiredFieldsValidator } from '@application/validators/_shared/required-fields.validator';
 import { CreateUserValidator } from '@application/validators/users/create-user.validator';
 
+import { ICreateUserDataReplication } from '@domain/providers/data-replications/users/create-user-data-replication.provider';
 import { IPasswordEncryption } from '@domain/providers/encryption/password-encryption.provider';
 import { IUuidGenerator } from '@domain/providers/uuidGenerator/uuid-generator.provider';
 import { ICreateUserRepository } from '@domain/repositories/users/create-user.repository';
@@ -16,13 +18,13 @@ import { ICreateUserValidator } from '@domain/validators/users/create-user.valid
 import { FakeUserRepository } from '@fakes/database/repositories/users.fake.repository';
 import { FakePasswordEncryption } from '@fakes/providers/encryption/password-encryption.fake.provider';
 import { FakeUuidGenerator } from '@fakes/providers/uuid/uuid-generator.fake.provider';
+import { FakeDataReplicationsRepository } from '@fakes/replications/replications.repository';
 import { FakeEmailValidator } from '@fakes/validators/email.fake.validator';
 import { FakePasswordValidator } from '@fakes/validators/password.fake.validator';
 
 import { IController } from '@shared/interfaces/controller.interface';
 import { HttpStatusCode } from '@shared/utils/http-status-code';
 
-import { CreateUserTransformer } from '../../../transformers/users/create-user.transformer';
 import { CreateUserController } from '../create-user.controller';
 
 let createUserController: IController;
@@ -35,6 +37,7 @@ let fakeEmailValidator: IEmailValidator;
 let fakePasswordValidator: IPasswordValidator;
 let requiredFieldsValidator: IRequiredFieldsValidator;
 let createUserTransformer: ICreateUserTransformer;
+let fakeReplicationsRepository: ICreateUserDataReplication;
 
 describe('CreateUserController', () => {
   beforeEach(() => {
@@ -44,7 +47,11 @@ describe('CreateUserController', () => {
     fakeEmailValidator = new FakeEmailValidator();
     fakePasswordValidator = new FakePasswordValidator();
     fakeUsersRepository = new FakeUserRepository(fakeUuidGenerator);
-    createUserUseCase = new CreateUserUsecase(fakeUsersRepository);
+    fakeReplicationsRepository = new FakeDataReplicationsRepository();
+    createUserUseCase = new CreateUserUsecase(
+      fakeUsersRepository,
+      fakeReplicationsRepository,
+    );
     createUserValidator = new CreateUserValidator(
       requiredFieldsValidator,
       fakeUsersRepository,
