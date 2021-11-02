@@ -7,7 +7,7 @@ export const envConfig = {
     },
   },
   nodeEnv: process.env.NODE_ENV,
-  port: process.env.API_PORT || 3000,
+  port: process.env.BLOG_USER_PORT,
   dataBaseDefault: {
     type: process.env.DB_DEFAULT_TYPE,
     host: process.env.DB_DEFAULT_HOST,
@@ -17,14 +17,10 @@ export const envConfig = {
     database: process.env.DB_DEFAULT_DATABASE,
   },
   sentry: {
-    dsn: process.env.SENTRY_DSN,
-  },
-  sonar: {
-    login: process.env.SONAR_LOGIN,
-    password: process.env.SONAR_PASSWORD,
+    dsn: process.env.BLOG_USER_SENTRY_DSN,
   },
   jwt: {
-    secret: process.env.JWT_APP_SECRET,
+    secret: process.env.JWT_SECRET,
     expiresIn: process.env.JWT_EXPIRES_IN,
     algorithm: process.env.JWT_ALGORITHM,
     issuer: process.env.JWT_ISSUER,
