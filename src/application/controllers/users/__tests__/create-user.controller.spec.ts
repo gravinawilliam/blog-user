@@ -69,8 +69,8 @@ describe('CreateUserController', () => {
   it('should be able to create user', async () => {
     const user = await createUserController.handle({
       body: {
-        name: 'Rita Marlene Gabrielly Cardoso',
-        email: 'gabriellycardoso@heineken.com.br',
+        name: 'Rita Marlene Gabrielly',
+        email: 'gabriellycardoso@google.com.br',
         password: '3k8EG923iA',
       },
     });
@@ -81,7 +81,7 @@ describe('CreateUserController', () => {
   it('should not be able to create user with invalid email', async () => {
     const user = await createUserController.handle({
       body: {
-        name: 'Rita Marlene Gabrielly Cardoso',
+        name: 'Rita Marlene Cardoso',
         email: 'invalidEmail', // ? invalid email
         password: '3k8EG923iA',
       },
@@ -92,8 +92,8 @@ describe('CreateUserController', () => {
   it('should not be able to create user with invalid password', async () => {
     const user = await createUserController.handle({
       body: {
-        name: 'Rita Marlene Gabrielly Cardoso',
-        email: 'gabriellycardoso@heineken.com.br',
+        name: 'Rita Gabrielly Cardoso',
+        email: 'gabriellycardoso@face.com.br',
         password: '22', // ? invalid password
       },
     });

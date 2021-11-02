@@ -4,5 +4,5 @@ import { IAuthenticateUserUseCaseDTO } from '@dtos/authentications/authenticate-
 export interface IAuthenticateUserUsecase {
   execute(
     data: IAuthenticateUserUseCaseDTO,
-  ): Promise<IAuthenticateUserUseCaseResponseDTO>;
+  ): IAuthenticateUserUseCaseResponseDTO;
 }

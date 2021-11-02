@@ -9,9 +9,7 @@ import { Either, left, right } from '@shared/utils/either';
 import { badRequest } from '@shared/utils/http-response';
 
 export class PasswordValidator implements IPasswordValidator {
-  async validatePassword(
-    password: string,
-  ): Promise<Either<IHttpResponse, boolean>> {
+  validatePassword(password: string): Either<IHttpResponse, boolean> {
     const options = {
       blackList,
     };

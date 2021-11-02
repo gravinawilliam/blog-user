@@ -6,8 +6,7 @@ import { makeCreateUserController } from '@main/factories/users/create-user.fact
 @Controller('/users')
 export class CreateUserRoute {
   @Post('/create')
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-  async create(@Req() request, @Res() response) {
+  create(@Req() request, @Res() response) {
     return adapterRoute(makeCreateUserController())(request, response);
   }
 }

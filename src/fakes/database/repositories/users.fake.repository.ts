@@ -19,6 +19,8 @@ export class FakeUserRepository
 
   private users: UserModel[] = [];
 
+  // ? I disabled the rule because here is an interface implementation
+  // eslint-disable-next-line require-await
   async create(user: ICreateUserDTO): Promise<UserModel> {
     const userCreated = Object.assign(new UserModel(), {
       id: this.uuidGenerator.generate(),
@@ -28,19 +30,22 @@ export class FakeUserRepository
     return userCreated;
   }
 
-  // eslint-disable-next-line consistent-return
+  // ? I disabled the rule because here is an interface implementation
+  // eslint-disable-next-line require-await
   async delete(id: string): Promise<void> {
     const findIndex = this.users.findIndex(i => i.id === id);
     this.users.splice(findIndex, 1);
   }
 
+  // ? I disabled the rule because here is an interface implementation
+  // eslint-disable-next-line require-await
   async findById(id: string): Promise<UserModel> {
-    const userFound = this.users.find(user => user.id === id);
-    return userFound;
+    return this.users.find(user => user.id === id);
   }
 
+  // ? I disabled the rule because here is an interface implementation
+  // eslint-disable-next-line require-await
   async findEmail(email: string): Promise<UserModel> {
-    const userFound = this.users.find(user => user.email === email);
-    return userFound;
+    return this.users.find(user => user.email === email);
   }
 }

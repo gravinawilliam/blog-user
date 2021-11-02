@@ -4,6 +4,6 @@ import { IPasswordEncryption } from '@domain/providers/encryption/password-encry
 
 export class PasswordEncryption implements IPasswordEncryption {
   async encrypt(password: string): Promise<string> {
-    return hash(password, 10);
+    return await hash(password, 10);
   }
 }

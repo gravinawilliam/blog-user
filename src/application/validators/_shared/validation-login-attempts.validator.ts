@@ -49,18 +49,19 @@ export class ValidationLoginAttemptsValidator
     // ? value é o numero de tentativas
     // eslint-disable-next-line no-restricted-syntax
     for (const [key, value] of conditionsTimeAttempts) {
-      if (logs.length === value) {
-        if (key > differenceInMinutes(new Date(), logs[0].createdAt)) {
-          return left(
-            unauthorized(
-              new UnauthorizedError(` ${differenceInMilliseconds(
-                addMinutes(logs[0].createdAt, key),
-                new Date(),
-              )}
+      if (
+        logs.length === value &&
+        key > differenceInMinutes(new Date(), logs[0].createdAt)
+      ) {
+        return left(
+          unauthorized(
+            new UnauthorizedError(` ${differenceInMilliseconds(
+              addMinutes(logs[0].createdAt, key),
+              new Date(),
+            )}
             `),
-            ),
-          );
-        }
+          ),
+        );
       }
     }
 

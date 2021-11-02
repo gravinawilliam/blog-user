@@ -21,14 +21,12 @@ export class TokenJwt implements ITokenGenerator, ITokenVerify {
   public generate(userId: string): string {
     const { secret, expiresIn, algorithm, issuer } = authConfig.jwt;
 
-    const token = sign({}, secret, {
+    return sign({}, secret, {
       subject: userId,
       issuer,
       expiresIn,
       algorithm,
     });
-
-    return token;
   }
 
   public verify({

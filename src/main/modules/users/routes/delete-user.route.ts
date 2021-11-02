@@ -7,7 +7,7 @@ import { makeDeleteUserController } from '@main/factories/users/delete-user.fact
 @Controller('/users')
 export class DeleteUserRoute {
   @Delete('/delete/:user_id')
-  async create(@Req() request, @Res() response) {
+  create(@Req() request, @Res() response) {
     return adapterRoute(makeDeleteUserController())(request, response);
   }
 }

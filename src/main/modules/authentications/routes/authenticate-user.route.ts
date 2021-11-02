@@ -6,7 +6,7 @@ import { makeAuthenticateUserController } from '@main/factories/authetications/a
 @Controller('/authentications')
 export class AuthenticateUserRoute {
   @Post('/authenticate')
-  async create(@Req() request, @Res() response) {
+  create(@Req() request, @Res() response) {
     return adapterRoute(makeAuthenticateUserController())(request, response);
   }
 }

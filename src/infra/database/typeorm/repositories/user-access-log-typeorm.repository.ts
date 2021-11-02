@@ -53,7 +53,7 @@ export default class UserAccessLogTypeormRepository
     authenticated,
     userId,
   }: IResquestFindByUserIdUserAccessLog): Promise<UserAccessLogModel[]> {
-    const found = await this.ormRepository.find({
+    return await this.ormRepository.find({
       where: {
         userId,
         authenticated,
@@ -62,6 +62,5 @@ export default class UserAccessLogTypeormRepository
         createdAt: 'DESC',
       },
     });
-    return found;
   }
 }
