@@ -1,51 +1,39 @@
 version: '3'
 
 services:
-#   db-pg-blog-user:
-#     image: 'bitnami/postgresql:latest'
-#     environment:
-#       POSTGRESQL_PASSWORD: ${DB_DEFAULT_PASSWORD}
-#       POSTGRESQL_USERNAME: ${DB_DEFAULT_USERNAME}
-#       POSTGRESQL_DATABASE: ${DB_DEFAULT_DATABASE}
-#       POSTGRESQL_TIMEZONE: America/SAO_PAULO
-#     ports:
-#       - "${DB_DEFAULT_PORT}:${DB_DEFAULT_PORT}"
-#     restart: unless-stopped
-#     container_name: db-pg-blog-user
-#     networks:
-#       - kong-net
-#     volumes:
-#       - ./pgdata:/var/lib/postgresql/data
-
   blog-user:
     build:
       context: .
       dockerfile: ./Dockerfile
+    entrypoint: ./entrypoint.sh
+    container_name: blog-user
     image: blog-user:latest
     environment:
+      SONAR_PROJECT_KEY: ${SONAR_PROJECT_KEY}
+      SONAR_SERVER_URL: ${SONAR_SERVER_URL}
+      VALIDATION_LOGIN_ATTEMPTS_TRY_LIMIT: ${VALIDATION_LOGIN_ATTEMPTS_TRY_LIMIT}
+      JWT_ISSUER: ${JWT_ISSUER}
+      JWT_ALGORITHM: ${JWT_ALGORITHM}
+      JWT_EXPIRES_IN: ${JWT_EXPIRES_IN}
+      JWT_SECRET: ${JWT_SECRET}
+      SONAR_PASSWORD: ${SONAR_PASSWORD}
+      SONAR_LOGIN: ${SONAR_LOGIN}
+      BLOG_USER_SENTRY_DSN: ${BLOG_USER_SENTRY_DSN}
+      DB_DEFAULT_DATABASE: ${DB_DEFAULT_DATABASE}
       DB_DEFAULT_PASSWORD: ${DB_DEFAULT_PASSWORD}
       DB_DEFAULT_USERNAME: ${DB_DEFAULT_USERNAME}
-      DB_DEFAULT_DATABASE: ${DB_DEFAULT_DATABASE}
-      DB_DEFAULT_TYPE: ${DB_DEFAULT_TYPE}
-      DB_DEFAULT_HOST: ${DB_DEFAULT_HOST}
       DB_DEFAULT_PORT: ${DB_DEFAULT_PORT}
-      API_PORT: ${API_PORT}
+      DB_DEFAULT_HOST: ${DB_DEFAULT_HOST}
+      DB_DEFAULT_TYPE: ${DB_DEFAULT_TYPE}
+      BLOG_USER_PORT: ${BLOG_USER_PORT}
       NODE_ENV: ${NODE_ENV}
-      SENTRY_DSN: ${SENTRY_DSN}
+      URL_BASE_DATA_REPLICATION: ${URL_BASE_DATA_REPLICATION}
     ports:
-      - "${API_PORT}:${API_PORT}"
-    container_name: blog-user
-    # depends_on:
-    #   - db-pg-blog-user
+      - "${BLOG_USER_PORT}:${BLOG_USER_PORT}"
     networks:
       - kong-net
     volumes:
-      - .:/app
-      - /app/node_modules
-
-# volumes:
-#   pgdata:
-
+      - .:/home/node/app/blog-user
 
 networks:
   kong-net:

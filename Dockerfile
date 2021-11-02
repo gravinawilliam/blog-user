@@ -1,20 +1,11 @@
-# Image source
 FROM node:14.18-alpine
 
-# RUN npm install -g @nestjs/cli --silent
 RUN apk add --no-cache bash
 
-# Docker working directory
-WORKDIR /app
+RUN npm config set cache /home/node/app/blog-user/.npm-cache --global
 
-# Copying file into APP directory of docker
-# COPY ./package.json ./package-lock.json /app/
+RUN mkdir -p /home/node/app/blog-user
 
-# Then install the NPM module
-RUN npm install
+USER node
 
-# Copy current directory to APP folder
-COPY . /app/
-
-EXPOSE 3000
-CMD ["npm", "run", "start:dev"]
+WORKDIR /home/node/app/blog-user
