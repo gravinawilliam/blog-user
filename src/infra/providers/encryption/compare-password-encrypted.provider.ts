@@ -9,6 +9,6 @@ export class ComparePasswordEncrypted implements IComparePasswordEncrypted {
     hashed,
     password,
   }: IComparePasswordEncryptedDTO): Promise<boolean> {
-    return compare(password, hashed);
+    return await compare(password, hashed);
   }
 }

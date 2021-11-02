@@ -11,7 +11,7 @@ export class UserDataReplication implements ICreateUserDataReplication {
   public async createUser(user: UserModel): Promise<void> {
     await this.httpRequest.post({
       data: user,
-      url: envConfig.url.internalMicroServices.dataReplication,
+      url: `${envConfig.url.internalMicroServices.dataReplication}/users/replication/create`,
     });
   }
 }

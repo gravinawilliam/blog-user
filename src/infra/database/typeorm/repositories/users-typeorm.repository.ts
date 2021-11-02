@@ -35,16 +35,14 @@ export default class UsersTypeormRepository
   }
 
   public async findEmail(email: string): Promise<UserModel> {
-    const userFound = await this.ormRepository.findOne({
+    return await this.ormRepository.findOne({
       where: {
         email,
       },
     });
-    return userFound;
   }
 
   public async findById(id: string): Promise<UserModel> {
-    const userFound = await this.ormRepository.findOne(id);
-    return userFound;
+    return await this.ormRepository.findOne(id);
   }
 }

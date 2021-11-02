@@ -24,6 +24,11 @@ export class CreateUserUsecase implements ICreateUserUsecase {
 
     this.dataReplications.createUser(userCreated);
 
-    return userCreated;
+    return {
+      createdAt: userCreated.createdAt,
+      email: userCreated.email,
+      id: userCreated.id,
+      name: userCreated.name,
+    };
   }
 }

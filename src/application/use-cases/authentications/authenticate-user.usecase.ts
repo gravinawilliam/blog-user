@@ -7,9 +7,9 @@ import { IAuthenticateUserUseCaseDTO } from '@dtos/authentications/authenticate-
 export class AuthenticateUserUsecase implements IAuthenticateUserUsecase {
   constructor(private readonly token: ITokenGenerator) {}
 
-  public async execute({
+  public execute({
     userId,
-  }: IAuthenticateUserUseCaseDTO): Promise<IAuthenticateUserUseCaseResponseDTO> {
+  }: IAuthenticateUserUseCaseDTO): IAuthenticateUserUseCaseResponseDTO {
     const token = this.token.generate(userId);
 
     return {

@@ -7,6 +7,8 @@ export class FakeDataReplicationsRepository
 {
   private users: UserModel[] = [];
 
+  // ? I disabled the rule because here is an interface implementation
+  // eslint-disable-next-line require-await
   public async createUser(user: UserModel): Promise<void> {
     const userCreated = Object.assign(new UserModel(), user);
     this.users.push(userCreated);
