@@ -32,7 +32,7 @@ export class AuthenticateUserController implements IController {
 
     const user = userValidated.value;
 
-    const { token } = await this.authenticateUserUseCase.execute({
+    const { token } = this.authenticateUserUseCase.execute({
       userId: user.id,
     });
 

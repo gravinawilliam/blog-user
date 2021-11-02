@@ -6,4 +6,6 @@ export class UserModel extends BaseModel {
   email: string;
 
   password: string;
+
+  avatar: string;
 }
