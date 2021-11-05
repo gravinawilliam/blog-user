@@ -31,10 +31,10 @@ services:
     ports:
       - "${BLOG_USER_PORT}:${BLOG_USER_PORT}"
     networks:
-      - kong-net
+      - blog-net
     volumes:
       - .:/home/node/app/blog-user
 
 networks:
-  kong-net:
+  blog-net:
     external: true
