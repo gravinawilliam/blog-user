@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { Controller, Req, Res, Delete } from '@nestjs/common';
 
 import { adapterRoute } from '@main/adapters/express-route-adapter';

@@ -1,5 +1,5 @@
 import { DeleteUserController } from '@application/controllers/users/delete-user.controller';
-import { DeleteUserUsecase } from '@application/use-cases/users/delete-user.usecase';
+import { DeleteUserUseCase } from '@application/use-cases/users/delete-user.usecase';
 import { RequiredFieldsValidator } from '@application/validators/_shared/required-fields.validator';
 import { DeleteUserValidator } from '@application/validators/users/delete-user.validator';
 
@@ -17,6 +17,6 @@ export const makeDeleteUserController = (): IController => {
     usersRepository,
     comparePasswordEncrypted,
   );
-  const deleteUserUsecase = new DeleteUserUsecase(usersRepository);
-  return new DeleteUserController(deleteUserUsecase, deleteUserValidator);
+  const deleteUserUseCase = new DeleteUserUseCase(usersRepository);
+  return new DeleteUserController(deleteUserUseCase, deleteUserValidator);
 };

@@ -18,7 +18,6 @@ export class HealthRoute {
 
   @Get()
   @HealthCheck()
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   check() {
     return this.health.check([
       () => this.db.pingCheck('database'),

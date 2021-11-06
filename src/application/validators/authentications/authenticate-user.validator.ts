@@ -1,15 +1,13 @@
 import { IComparePasswordEncrypted } from '@domain/providers/encryption/compare-password-encrypted.provider';
 import { ICreateFailureUserAccessLogRepository } from '@domain/repositories/user-access-log/create-failure-user-access-log.repository';
+import { ICreateSuccessUserAccessLogRepository } from '@domain/repositories/user-access-log/create-success-user-access-log.repository';
 import { IFindEmailUserRepository } from '@domain/repositories/users/find-email-user.repository';
 import { IEmailValidator } from '@domain/validators/_shared/email.validator';
 import { IRequiredFieldsValidator } from '@domain/validators/_shared/required-fields.validator';
-import { IValidationLoginAttemptsValidator } from '@domain/validators/_shared/validation-login-attempts.validator';
 import { IAuthenticateUserValidator } from '@domain/validators/authentications/authenticate-user.validator';
 
 import { IAuthenticateUserValidatorResponseDTO } from '@dtos/authentications/authenticate-user-validator-response.dto';
 import { IAuthenticateUserDTO } from '@dtos/authentications/authenticate-user.dto';
-
-import { authConfig } from '@main/config/auth.config';
 
 import { InvalidParamError } from '@shared/errors/invalid-param.error';
 import { NotFoundModelError } from '@shared/errors/not-found-model.error';
@@ -23,8 +21,8 @@ export class AuthenticateUserValidator implements IAuthenticateUserValidator {
     private readonly usersRepository: IFindEmailUserRepository,
     private readonly emailValidator: IEmailValidator,
     private readonly comparePasswordEncrypted: IComparePasswordEncrypted,
-    private readonly validationLoginAttempts: IValidationLoginAttemptsValidator,
-    private readonly userAccessLogRepository: ICreateFailureUserAccessLogRepository,
+    private readonly userAccessLogRepository: ICreateFailureUserAccessLogRepository &
+      ICreateSuccessUserAccessLogRepository,
   ) {}
 
   public async execute({
@@ -39,7 +37,7 @@ export class AuthenticateUserValidator implements IAuthenticateUserValidator {
     });
     if (requiredFields.isLeft()) return left(requiredFields.value);
 
-    const isEmailValid = await this.emailValidator.isEmailValid(email);
+    const isEmailValid = this.emailValidator.isEmailValid(email);
     if (!isEmailValid) {
       return left(badRequest(new InvalidParamError('email')));
     }
@@ -48,13 +46,6 @@ export class AuthenticateUserValidator implements IAuthenticateUserValidator {
     if (user === undefined) {
       return left(notFound(new NotFoundModelError('user')));
     }
-
-    const attemptsValidated = await this.validationLoginAttempts.execute({
-      conditionsTimeAttempts: authConfig.conditionsTimeAttempts,
-      userId: user.id,
-      tryLimit: authConfig.tryLimit,
-    });
-    if (attemptsValidated.isLeft()) return left(attemptsValidated.value);
 
     const passwordMatched = await this.comparePasswordEncrypted.comparePassword(
       {
@@ -68,6 +59,10 @@ export class AuthenticateUserValidator implements IAuthenticateUserValidator {
       });
       return left(badRequest(new InvalidParamError('password')));
     }
+
+    await this.userAccessLogRepository.createSuccess({
+      userId: user.id,
+    });
 
     return right({
       id: user.id,

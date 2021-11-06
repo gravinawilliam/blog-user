@@ -2,20 +2,13 @@ import { getRepository, Repository } from 'typeorm';
 
 import { ICreateFailureUserAccessLogRepository } from '@domain/repositories/user-access-log/create-failure-user-access-log.repository';
 import { ICreateSuccessUserAccessLogRepository } from '@domain/repositories/user-access-log/create-success-user-access-log.repository';
-import { IFindByUserIdUserAccessLogRepository } from '@domain/repositories/user-access-log/find-by-user-id-user-access-log.repository';
 
-import {
-  IRequestCreateUserAccessLogDTO,
-  IResquestFindByUserIdUserAccessLog,
-} from '@dtos/_shared/validation-login-attempts.dto';
-
-import { UserAccessLogModel } from '@models/user-access-log.model';
+import { IRequestCreateUserAccessLogDTO } from '@dtos/_shared/validation-login-attempts.dto';
 
 import { UserAccessLogEntity } from '../entities/user-access-log.entity';
 
 export default class UserAccessLogTypeormRepository
   implements
-    IFindByUserIdUserAccessLogRepository,
     ICreateSuccessUserAccessLogRepository,
     ICreateFailureUserAccessLogRepository
 {
@@ -47,20 +40,5 @@ export default class UserAccessLogTypeormRepository
     for await (const log of logs) {
       await this.ormRepository.softDelete(log);
     }
-  }
-
-  public async findByUserId({
-    authenticated,
-    userId,
-  }: IResquestFindByUserIdUserAccessLog): Promise<UserAccessLogModel[]> {
-    return await this.ormRepository.find({
-      where: {
-        userId,
-        authenticated,
-      },
-      order: {
-        createdAt: 'DESC',
-      },
-    });
   }
 }

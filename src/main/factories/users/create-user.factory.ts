@@ -1,5 +1,5 @@
 import { CreateUserController } from '@application/controllers/users/create-user.controller';
-import { CreateUserUsecase } from '@application/use-cases/users/create-user.usecase';
+import { CreateUserUseCase } from '@application/use-cases/users/create-user.usecase';
 import { RequiredFieldsValidator } from '@application/validators/_shared/required-fields.validator';
 import { CreateUserValidator } from '@application/validators/users/create-user.validator';
 
@@ -28,13 +28,13 @@ export const makeCreateUserController = (): IController => {
   );
   const httpRequest = new AxiosHttpProvider();
   const dataReplications = new UserDataReplication(httpRequest);
-  const createUserUsecase = new CreateUserUsecase(
+  const createUserUseCase = new CreateUserUseCase(
     usersRepository,
     dataReplications,
   );
   const createUserTransformer = new CreateUserTransformer(passwordEncryption);
   return new CreateUserController(
-    createUserUsecase,
+    createUserUseCase,
     createUserValidator,
     createUserTransformer,
   );

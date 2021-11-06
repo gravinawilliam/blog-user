@@ -1,7 +1,6 @@
 import type { Config } from '@jest/types';
 import { pathsToModuleNameMapper } from 'ts-jest/utils';
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
 const { compilerOptions } = require('./tsconfig.json');
 
 const config: Config.InitialOptions = {
@@ -18,6 +17,7 @@ const config: Config.InitialOptions = {
     '<rootDir>/src/application/controllers/**/*.controller.ts',
     '<rootDir>/src/application/use-cases/**/*.usecase.ts',
     '<rootDir>/src/application/validators/**/*.validator.ts',
+    '<rootDir>/src/application/transformers/**/*.transformer.ts',
   ],
   testResultsProcessor: 'jest-sonar-reporter',
   coverageDirectory: 'coverage',

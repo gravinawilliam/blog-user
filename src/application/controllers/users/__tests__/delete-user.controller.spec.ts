@@ -1,4 +1,4 @@
-import { DeleteUserUsecase } from '@application/use-cases/users/delete-user.usecase';
+import { DeleteUserUseCase } from '@application/use-cases/users/delete-user.usecase';
 import { RequiredFieldsValidator } from '@application/validators/_shared/required-fields.validator';
 import { DeleteUserValidator } from '@application/validators/users/delete-user.validator';
 
@@ -7,11 +7,11 @@ import { IUuidGenerator } from '@domain/providers/uuidGenerator/uuid-generator.p
 import { ICreateUserRepository } from '@domain/repositories/users/create-user.repository';
 import { IDeleteUserRepository } from '@domain/repositories/users/delete-user.repository';
 import { IFindByIdUserRepository } from '@domain/repositories/users/find-by-id-user.repository';
-import { IDeleteUserUsecase } from '@domain/use-cases/users/delete-user.usecase';
+import { IDeleteUserUseCase } from '@domain/use-cases/users/delete-user.usecase';
 import { IRequiredFieldsValidator } from '@domain/validators/_shared/required-fields.validator';
 import { IDeleteUserValidator } from '@domain/validators/users/delete-user.validator';
 
-import { FakeUserRepository } from '@fakes/database/repositories/users.fake.repository';
+import { FakeUserRepository } from '@fakes/database/repositories/users-fake.repository';
 import { FakeComparePasswordEncrypted } from '@fakes/providers/encryption/compare-password-encrypted.fake.provider';
 import { FakeUuidGenerator } from '@fakes/providers/uuid/uuid-generator.fake.provider';
 
@@ -25,7 +25,7 @@ import { HttpStatusCode } from '@shared/utils/http-status-code';
 import { DeleteUserController } from '../delete-user.controller';
 
 let deleteUserController: IController;
-let deleteUserUseCase: IDeleteUserUsecase;
+let deleteUserUseCase: IDeleteUserUseCase;
 let deleteUserValidator: IDeleteUserValidator;
 
 let fakeUsersRepository: ICreateUserRepository &
@@ -40,7 +40,7 @@ describe('CreateUserController', () => {
     fakeUuidGenerator = new FakeUuidGenerator();
     requiredFieldsValidator = new RequiredFieldsValidator();
     fakeUsersRepository = new FakeUserRepository(fakeUuidGenerator);
-    deleteUserUseCase = new DeleteUserUsecase(fakeUsersRepository);
+    deleteUserUseCase = new DeleteUserUseCase(fakeUsersRepository);
     comparePasswordEncrypted = new FakeComparePasswordEncrypted();
     deleteUserValidator = new DeleteUserValidator(
       requiredFieldsValidator,

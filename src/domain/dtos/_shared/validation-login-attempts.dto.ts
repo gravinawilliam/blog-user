@@ -1,14 +1,15 @@
 export type IRequestValidationLoginAttempts = {
   userId: string;
-  conditionsTimeAttempts: any;
-  tryLimit: number;
-};
-
-export type IResquestFindByUserIdUserAccessLog = {
-  userId: string;
-  authenticated: boolean;
 };
 
 export type IRequestCreateUserAccessLogDTO = {
   userId: string;
+};
+
+export type IResponseValidationLoginAttemptsDTO = {
+  numberAttempts: number;
+};
+
+export type IRequestDoubleCheckValidationLoginAttemptsDTO = {
+  numberAttempts: number;
 };
