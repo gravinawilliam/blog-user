@@ -21,6 +21,6 @@ export class RequiredFieldsValidator implements IRequiredFieldsValidator {
 
     if (errors.length === 0) return right(true);
 
-    return left(badRequest(new RequiredParamError(errors.join())));
+    return left(badRequest(new RequiredParamError(errors.join(', '))));
   }
 }
