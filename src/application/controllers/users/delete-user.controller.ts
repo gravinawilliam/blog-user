@@ -13,12 +13,12 @@ export class DeleteUserController implements IController {
   ) {}
 
   async handle(httpRequest: IHttpRequest): Promise<IHttpResponse> {
+    const { authorization } = httpRequest.headers;
     const { password } = httpRequest.body;
-    const { user_id } = httpRequest.params;
 
     const userValidated = await this.deleteUserValidator.execute({
       password,
-      userId: user_id,
+      authorization,
     });
 
     if (userValidated.isLeft()) {

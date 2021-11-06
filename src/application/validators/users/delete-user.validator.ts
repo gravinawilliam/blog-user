@@ -1,4 +1,5 @@
 import { IComparePasswordEncrypted } from '@domain/providers/encryption/compare-password-encrypted.provider';
+import { ITokenVerify } from '@domain/providers/token/token-verify.provider';
 import { IFindByIdUserRepository } from '@domain/repositories/users/find-by-id-user.repository';
 import { IRequiredFieldsValidator } from '@domain/validators/_shared/required-fields.validator';
 import { IDeleteUserValidator } from '@domain/validators/users/delete-user.validator';
@@ -17,19 +18,26 @@ export class DeleteUserValidator implements IDeleteUserValidator {
     private readonly requiredFieldsValidator: IRequiredFieldsValidator,
     private readonly usersRepository: IFindByIdUserRepository,
     private readonly comparePasswordEncrypted: IComparePasswordEncrypted,
+    private readonly tokenProvider: ITokenVerify,
   ) {}
 
   public async execute({
-    userId,
     password,
+    authorization,
   }: IDeleteUserDTO): Promise<
     Either<IHttpResponse, IDeleteUserValidatorResponseDTO>
   > {
     const requiredFields = this.requiredFieldsValidator.execute({
-      fields: [userId, password],
-      fieldNames: ['userId', 'password'],
+      fields: [authorization, password],
+      fieldNames: ['authorization', 'password'],
     });
     if (requiredFields.isLeft()) return left(requiredFields.value);
+
+    const tokenValid = this.tokenProvider.verify({
+      authorization,
+    });
+    if (tokenValid.isLeft()) return left(tokenValid.value);
+    const { userId } = tokenValid.value;
 
     const user = await this.usersRepository.findById(userId);
     if (user === undefined) {

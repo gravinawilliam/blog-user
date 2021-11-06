@@ -1,4 +1,4 @@
 export interface IDeleteUserDTO {
-  userId: string;
+  authorization: string;
   password: string;
 }
