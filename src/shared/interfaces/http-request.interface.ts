@@ -1,5 +1,6 @@
 type IHeaders = {
   [key: string]: unknown;
+  authorization?: string;
 };
 
 export interface IHttpRequest {
