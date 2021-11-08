@@ -4,11 +4,10 @@ import { ICreateUserTransformer } from '@domain/transformers/users/create-user.t
 import { IResponseTransformerCreateUserDTO } from '@dtos/users/create-user-transformer-response.dto';
 import { ITransformerCreateUserDTO } from '@dtos/users/create-user-transformer.dto';
 
+import { InvalidParamError } from '@shared/errors/invalid-param.error';
 import { IHttpResponse } from '@shared/interfaces/http-response.interface';
 import { Either, right, left } from '@shared/utils/either';
 import { badRequest } from '@shared/utils/http-response';
-
-import { InvalidParamError } from '../../../shared/errors/invalid-param.error';
 
 export class CreateUserTransformer implements ICreateUserTransformer {
   constructor(private readonly passwordEncryption: IPasswordEncryption) {}

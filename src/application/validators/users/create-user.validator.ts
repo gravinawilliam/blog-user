@@ -31,12 +31,10 @@ export class CreateUserValidator implements ICreateUserValidator {
     });
     if (requiredFields.isLeft()) return left(requiredFields.value);
 
-    const isPasswordValid = await this.passwordValidator.validatePassword(
-      password,
-    );
+    const isPasswordValid = this.passwordValidator.validatePassword(password);
     if (isPasswordValid.isLeft()) return left(isPasswordValid.value);
 
-    const isEmailValid = await this.emailValidator.isEmailValid(email);
+    const isEmailValid = this.emailValidator.isEmailValid(email);
     if (!isEmailValid) {
       return left(badRequest(new InvalidParamError('email')));
     }
