@@ -3,6 +3,7 @@ import { ICreateUserRepository } from '@domain/repositories/users/create-user.re
 import { IDeleteUserRepository } from '@domain/repositories/users/delete-user.repository';
 import { IFindByIdUserRepository } from '@domain/repositories/users/find-by-id-user.repository';
 import { IFindEmailUserRepository } from '@domain/repositories/users/find-email-user.repository';
+import { IUpdateUserRepository } from '@domain/repositories/users/update-user.repository';
 
 import { ICreateUserDTO } from '@dtos/users/create-user.dto';
 
@@ -13,7 +14,8 @@ export class FakeUserRepository
     ICreateUserRepository,
     IFindEmailUserRepository,
     IFindByIdUserRepository,
-    IDeleteUserRepository
+    IDeleteUserRepository,
+    IUpdateUserRepository
 {
   constructor(private readonly uuidGenerator: IUuidGenerator) {}
 
@@ -47,5 +49,13 @@ export class FakeUserRepository
   // eslint-disable-next-line require-await
   async findEmail(email: string): Promise<UserModel> {
     return this.users.find(user => user.email === email);
+  }
+
+  // ? I disabled the rule because here is an interface implementation
+  // eslint-disable-next-line require-await
+  async update(user: UserModel): Promise<UserModel> {
+    const findIndex = this.users.findIndex(findUser => findUser.id === user.id);
+    this.users[findIndex] = user;
+    return user;
   }
 }
