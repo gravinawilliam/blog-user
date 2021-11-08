@@ -4,6 +4,7 @@ import { ICreateUserRepository } from '@domain/repositories/users/create-user.re
 import { IDeleteUserRepository } from '@domain/repositories/users/delete-user.repository';
 import { IFindByIdUserRepository } from '@domain/repositories/users/find-by-id-user.repository';
 import { IFindEmailUserRepository } from '@domain/repositories/users/find-email-user.repository';
+import { IUpdateUserRepository } from '@domain/repositories/users/update-user.repository';
 
 import { ICreateUserDTO } from '@dtos/users/create-user.dto';
 
@@ -16,12 +17,17 @@ export default class UsersTypeormRepository
     ICreateUserRepository,
     IFindEmailUserRepository,
     IDeleteUserRepository,
-    IFindByIdUserRepository
+    IFindByIdUserRepository,
+    IUpdateUserRepository
 {
   private ormRepository: Repository<UserEntity>;
 
   constructor() {
     this.ormRepository = getRepository(UserEntity);
+  }
+
+  public async update(user: UserModel): Promise<UserModel> {
+    return await this.ormRepository.save(user);
   }
 
   public async create(user: ICreateUserDTO): Promise<UserModel> {
