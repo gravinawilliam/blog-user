@@ -10,7 +10,7 @@ import { AppModule } from './main/modules/_global/app.module';
 const { port, nodeEnv } = envConfig;
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule, { cors: true });
+  const app = await NestFactory.create(AppModule);
   // app.use(helmet());
   app.useGlobalFilters(new AllExceptionsFilter());
   app.enableCors();
