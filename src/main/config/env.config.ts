@@ -1,9 +1,13 @@
 import 'dotenv/config';
 
 export const envConfig = {
+  dataReplication: {
+    key: process.env.DATA_REPLICATION_KEY,
+  },
   url: {
     internalMicroServices: {
       dataReplication: process.env.URL_BASE_DATA_REPLICATION,
+      notifications: process.env.URL_BASE_NOTIFICATION,
     },
   },
   nodeEnv: process.env.NODE_ENV,
@@ -18,6 +22,7 @@ export const envConfig = {
   },
   sentry: {
     dsn: process.env.BLOG_USER_SENTRY_DSN,
+    environment: process.env.NODE_ENV === 'PROD' ? 'production' : 'development',
   },
   jwt: {
     secret: process.env.JWT_SECRET,
