@@ -17,12 +17,12 @@ export const created = (data: unknown): IHttpResponse => ({
   body: data,
 });
 
-export const ok = (data: unknown): IHttpResponse => ({
+export const ok = (data?: unknown): IHttpResponse => ({
   statusCode: HttpStatusCode.OK,
   body: data,
 });
 
-export const deleted = (data: unknown): IHttpResponse => ({
+export const deleted = (data?: unknown): IHttpResponse => ({
   statusCode: HttpStatusCode.OK,
   body: data,
 });
