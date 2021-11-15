@@ -1,5 +1,5 @@
 import { IComparePasswordEncrypted } from '@domain/providers/encryption/compare-password-encrypted.provider';
-import { ITokenVerify } from '@domain/providers/token/token-verify.provider';
+import { ITokenJwtVerify } from '@domain/providers/token/jwt/token-jwt-verify.provider';
 import { IFindByIdUserRepository } from '@domain/repositories/users/find-by-id-user.repository';
 import { IRequiredFieldsValidator } from '@domain/validators/_shared/required-fields.validator';
 import { IDeleteUserValidator } from '@domain/validators/users/delete-user.validator';
@@ -18,7 +18,7 @@ export class DeleteUserValidator implements IDeleteUserValidator {
     private readonly requiredFieldsValidator: IRequiredFieldsValidator,
     private readonly usersRepository: IFindByIdUserRepository,
     private readonly comparePasswordEncrypted: IComparePasswordEncrypted,
-    private readonly tokenProvider: ITokenVerify,
+    private readonly tokenProvider: ITokenJwtVerify,
   ) {}
 
   public async execute({
@@ -56,7 +56,7 @@ export class DeleteUserValidator implements IDeleteUserValidator {
     }
 
     return right({
-      id: user.id,
-    } as IDeleteUserValidatorResponseDTO);
+      user,
+    });
   }
 }

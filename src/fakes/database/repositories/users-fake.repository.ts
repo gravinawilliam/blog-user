@@ -34,9 +34,12 @@ export class FakeUserRepository
 
   // ? I disabled the rule because here is an interface implementation
   // eslint-disable-next-line require-await
-  async delete(id: string): Promise<void> {
-    const findIndex = this.users.findIndex(i => i.id === id);
+  async delete(params: UserModel): Promise<UserModel> {
+    const findIndex = this.users.findIndex(i => i.id === params.id);
     this.users.splice(findIndex, 1);
+    const user = params;
+    user.deletedAt = new Date();
+    return user;
   }
 
   // ? I disabled the rule because here is an interface implementation

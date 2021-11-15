@@ -4,11 +4,11 @@ import { UpdateUserUseCase } from '@application/use-cases/users/update-user.usec
 import { RequiredFieldsValidator } from '@application/validators/_shared/required-fields.validator';
 import { UpdateUserValidator } from '@application/validators/users/update-user.validator';
 
-import { IUpdateUserDataReplicationProvider } from '@domain/providers/data-replications/users/update-user-data-replication.provider';
+import { IUserDataReplication } from '@domain/providers/data-replications/users/user-data-replication.provider';
 import { IComparePasswordEncrypted } from '@domain/providers/encryption/compare-password-encrypted.provider';
 import { IPasswordEncryption } from '@domain/providers/encryption/password-encryption.provider';
-import { ITokenGenerator } from '@domain/providers/token/token-generator.provider';
-import { ITokenVerify } from '@domain/providers/token/token-verify.provider';
+import { ITokenJwtGenerator } from '@domain/providers/token/jwt/token-jwt-generator.provider';
+import { ITokenJwtVerify } from '@domain/providers/token/jwt/token-jwt-verify.provider';
 import { IUuidGenerator } from '@domain/providers/uuidGenerator/uuid-generator.provider';
 import { ICreateUserRepository } from '@domain/repositories/users/create-user.repository';
 import { IFindByIdUserRepository } from '@domain/repositories/users/find-by-id-user.repository';
@@ -42,9 +42,9 @@ let updateUserUseCase: IUpdateUserUseCase;
 let updateUserValidator: IUpdateUserValidator;
 let updateUserController: UpdateUserController;
 let comparePasswordEncrypted: IComparePasswordEncrypted;
-let tokenProvider: ITokenVerify & ITokenGenerator;
+let tokenProvider: ITokenJwtVerify & ITokenJwtGenerator;
 let fakeEmailValidator: IEmailValidator;
-let fakeReplicationsRepository: IUpdateUserDataReplicationProvider;
+let fakeReplicationsRepository: IUserDataReplication;
 let fakePasswordValidator: IPasswordValidator;
 let updateUserTransformer: IUpdateUserTransformer;
 let fakePasswordEncryption: IPasswordEncryption;

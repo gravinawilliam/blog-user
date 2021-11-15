@@ -1,5 +1,5 @@
 import { IComparePasswordEncrypted } from '@domain/providers/encryption/compare-password-encrypted.provider';
-import { ITokenVerify } from '@domain/providers/token/token-verify.provider';
+import { ITokenJwtVerify } from '@domain/providers/token/jwt/token-jwt-verify.provider';
 import { IFindByIdUserRepository } from '@domain/repositories/users/find-by-id-user.repository';
 import { IFindEmailUserRepository } from '@domain/repositories/users/find-email-user.repository';
 import { IEmailValidator } from '@domain/validators/_shared/email.validator';
@@ -22,7 +22,7 @@ export class UpdateUserValidator implements IUpdateUserValidator {
     private readonly usersRepository: IFindByIdUserRepository &
       IFindEmailUserRepository,
     private readonly comparePasswordEncrypted: IComparePasswordEncrypted,
-    private readonly tokenProvider: ITokenVerify,
+    private readonly tokenProvider: ITokenJwtVerify,
     private readonly emailValidator: IEmailValidator,
     private readonly passwordValidator: IPasswordValidator,
   ) {}

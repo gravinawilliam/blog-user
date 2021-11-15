@@ -9,7 +9,7 @@ import { UserDataReplication } from '@infra/providers/data-replications/users/us
 import { ComparePasswordEncrypted } from '@infra/providers/encryption/compare-password-encrypted.provider';
 import { PasswordEncryption } from '@infra/providers/encryption/password-encryption.provider';
 import { AxiosHttpProvider } from '@infra/providers/http/axios.provider';
-import { TokenJwt } from '@infra/providers/token-jwt/token-jwt.provider';
+import { TokenJwtProvider } from '@infra/providers/token/jwt/token-jwt.provider';
 import { EmailValidator } from '@infra/validators/email.validator';
 import { PasswordValidator } from '@infra/validators/password.validator';
 
@@ -23,7 +23,7 @@ export const makeUpdateUserController = (): IController => {
   const comparePasswordEncrypted = new ComparePasswordEncrypted();
   const requiredFieldsValidator = new RequiredFieldsValidator();
   const usersRepository = new UsersTypeormRepository();
-  const tokenProvider = new TokenJwt();
+  const tokenProvider = new TokenJwtProvider();
   const updateUserValidator = new UpdateUserValidator(
     requiredFieldsValidator,
     usersRepository,

@@ -36,8 +36,10 @@ export default class UsersTypeormRepository
     return userCreated;
   }
 
-  public async delete(id: string): Promise<void> {
-    await this.ormRepository.softDelete(id);
+  public async delete(params: UserModel): Promise<UserModel> {
+    const user = params;
+    user.deletedAt = new Date();
+    return await this.ormRepository.save(user);
   }
 
   public async findEmail(email: string): Promise<UserModel> {

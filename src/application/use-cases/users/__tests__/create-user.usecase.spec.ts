@@ -1,4 +1,4 @@
-import { ICreateUserDataReplication } from '@domain/providers/data-replications/users/create-user-data-replication.provider';
+import { IUserDataReplication } from '@domain/providers/data-replications/users/user-data-replication.provider';
 import { ICreateUserRepository } from '@domain/repositories/users/create-user.repository';
 import { ICreateUserUseCase } from '@domain/use-cases/users/create-user.usecase';
 
@@ -10,7 +10,7 @@ import { CreateUserUseCase } from '../create-user.usecase';
 
 let createUserUseCase: ICreateUserUseCase;
 let fakeUsersRepository: ICreateUserRepository;
-let fakeDataReplications: ICreateUserDataReplication;
+let fakeDataReplications: IUserDataReplication;
 let fakeUuidGenerator: FakeUuidGenerator;
 
 describe('CreateUserUseCase', () => {

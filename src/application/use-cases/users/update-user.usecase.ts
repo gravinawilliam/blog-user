@@ -1,4 +1,4 @@
-import { IUpdateUserDataReplicationProvider } from '@domain/providers/data-replications/users/update-user-data-replication.provider';
+import { IUserDataReplication } from '@domain/providers/data-replications/users/user-data-replication.provider';
 import { IUpdateUserRepository } from '@domain/repositories/users/update-user.repository';
 import { IUpdateUserUseCase } from '@domain/use-cases/users/update-user.usecase';
 
@@ -7,7 +7,7 @@ import { UpdateUserUseCaseDTO } from '@dtos/users/update-user.dto';
 export class UpdateUserUseCase implements IUpdateUserUseCase {
   constructor(
     private readonly usersRepository: IUpdateUserRepository,
-    private readonly dataReplications: IUpdateUserDataReplicationProvider,
+    private readonly dataReplications: IUserDataReplication,
   ) {}
 
   async execute({
@@ -24,7 +24,10 @@ export class UpdateUserUseCase implements IUpdateUserUseCase {
 
     const updated = await this.usersRepository.update(user);
 
-    this.dataReplications.updateUser(updated);
+    this.dataReplications.user({
+      type: 'update',
+      user: updated,
+    });
 
     return {
       id: updated.id,

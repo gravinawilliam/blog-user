@@ -1,3 +1,3 @@
-export interface ITokenGenerator {
+export interface ITokenJwtGenerator {
   generate(userId: string): string;
 }

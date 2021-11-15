@@ -29,10 +29,12 @@ export class DeleteUserController implements IController {
       };
     }
 
+    const { user } = userValidated.value;
+
     await this.deleteUserUseCase.execute({
-      id: userValidated.value.id,
+      user,
     });
 
-    return deleted(true);
+    return deleted();
   }
 }

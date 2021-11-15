@@ -6,7 +6,7 @@ import { AuthenticateUserValidator } from '@application/validators/authenticatio
 import UserAccessLogTypeormRepository from '@infra/database/typeorm/repositories/user-access-log-typeorm.repository';
 import UsersTypeormRepository from '@infra/database/typeorm/repositories/users-typeorm.repository';
 import { ComparePasswordEncrypted } from '@infra/providers/encryption/compare-password-encrypted.provider';
-import { TokenJwt } from '@infra/providers/token-jwt/token-jwt.provider';
+import { TokenJwtProvider } from '@infra/providers/token/jwt/token-jwt.provider';
 import { EmailValidator } from '@infra/validators/email.validator';
 
 export const makeAuthenticateUserController =
@@ -23,7 +23,7 @@ export const makeAuthenticateUserController =
       comparePasswordEncrypted,
       userAccessLogRepository,
     );
-    const tokenGenerator = new TokenJwt();
+    const tokenGenerator = new TokenJwtProvider();
     const authenticateUserUseCase = new AuthenticateUserUseCase(tokenGenerator);
     return new AuthenticateUserController(
       authenticateUserUseCase,

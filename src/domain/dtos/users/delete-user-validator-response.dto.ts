@@ -1,3 +1,5 @@
+import { UserModel } from '@models/user.model';
+
 export interface IDeleteUserValidatorResponseDTO {
-  id: string;
+  user: UserModel;
 }

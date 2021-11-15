@@ -2,9 +2,10 @@ import { DeleteUserUseCase } from '@application/use-cases/users/delete-user.usec
 import { RequiredFieldsValidator } from '@application/validators/_shared/required-fields.validator';
 import { DeleteUserValidator } from '@application/validators/users/delete-user.validator';
 
+import { IUserDataReplication } from '@domain/providers/data-replications/users/user-data-replication.provider';
 import { IComparePasswordEncrypted } from '@domain/providers/encryption/compare-password-encrypted.provider';
-import { ITokenGenerator } from '@domain/providers/token/token-generator.provider';
-import { ITokenVerify } from '@domain/providers/token/token-verify.provider';
+import { ITokenJwtGenerator } from '@domain/providers/token/jwt/token-jwt-generator.provider';
+import { ITokenJwtVerify } from '@domain/providers/token/jwt/token-jwt-verify.provider';
 import { IUuidGenerator } from '@domain/providers/uuidGenerator/uuid-generator.provider';
 import { ICreateUserRepository } from '@domain/repositories/users/create-user.repository';
 import { IDeleteUserRepository } from '@domain/repositories/users/delete-user.repository';
@@ -17,6 +18,7 @@ import { FakeUserRepository } from '@fakes/database/repositories/users-fake.repo
 import { FakeComparePasswordEncrypted } from '@fakes/providers/encryption/compare-password-encrypted.fake.provider';
 import { FakeTokenJwt } from '@fakes/providers/token/fake-token-jwt.provider';
 import { FakeUuidGenerator } from '@fakes/providers/uuid/uuid-generator.fake.provider';
+import { FakeDataReplicationsRepository } from '@fakes/replications/replications.repository';
 
 import { InvalidParamError } from '@shared/errors/invalid-param.error';
 import { NotFoundModelError } from '@shared/errors/not-found-model.error';
@@ -37,15 +39,19 @@ let fakeUsersRepository: ICreateUserRepository &
 let fakeUuidGenerator: IUuidGenerator;
 let comparePasswordEncrypted: IComparePasswordEncrypted;
 let requiredFieldsValidator: IRequiredFieldsValidator;
-let tokenProvider: ITokenVerify & ITokenGenerator;
-// ? authenticate
+let tokenProvider: ITokenJwtVerify & ITokenJwtGenerator;
+let fakeReplicationsRepository: IUserDataReplication;
 
 describe('DeleteUserController', () => {
   beforeEach(() => {
     fakeUuidGenerator = new FakeUuidGenerator();
     requiredFieldsValidator = new RequiredFieldsValidator();
     fakeUsersRepository = new FakeUserRepository(fakeUuidGenerator);
-    deleteUserUseCase = new DeleteUserUseCase(fakeUsersRepository);
+    fakeReplicationsRepository = new FakeDataReplicationsRepository();
+    deleteUserUseCase = new DeleteUserUseCase(
+      fakeUsersRepository,
+      fakeReplicationsRepository,
+    );
     comparePasswordEncrypted = new FakeComparePasswordEncrypted();
     tokenProvider = new FakeTokenJwt();
     deleteUserValidator = new DeleteUserValidator(
@@ -75,7 +81,6 @@ describe('DeleteUserController', () => {
         authorization: `Bearer ${user.id}`,
       },
     });
-    expect(userDeleted.body).toBe(true);
     expect(userDeleted.statusCode).toBe(HttpStatusCode.OK);
   });
 

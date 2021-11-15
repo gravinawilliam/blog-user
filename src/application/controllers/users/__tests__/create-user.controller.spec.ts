@@ -4,7 +4,7 @@ import { CreateUserUseCase } from '@application/use-cases/users/create-user.usec
 import { RequiredFieldsValidator } from '@application/validators/_shared/required-fields.validator';
 import { CreateUserValidator } from '@application/validators/users/create-user.validator';
 
-import { ICreateUserDataReplication } from '@domain/providers/data-replications/users/create-user-data-replication.provider';
+import { IUserDataReplication } from '@domain/providers/data-replications/users/user-data-replication.provider';
 import { IPasswordEncryption } from '@domain/providers/encryption/password-encryption.provider';
 import { IUuidGenerator } from '@domain/providers/uuidGenerator/uuid-generator.provider';
 import { ICreateUserRepository } from '@domain/repositories/users/create-user.repository';
@@ -36,7 +36,7 @@ let fakeEmailValidator: IEmailValidator;
 let fakePasswordValidator: IPasswordValidator;
 let requiredFieldsValidator: IRequiredFieldsValidator;
 let createUserTransformer: ICreateUserTransformer;
-let fakeReplicationsRepository: ICreateUserDataReplication;
+let fakeReplicationsRepository: IUserDataReplication;
 
 describe('CreateUserController', () => {
   beforeEach(() => {

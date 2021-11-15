@@ -1,4 +1,4 @@
-import { ICreateUserDataReplication } from '@domain/providers/data-replications/users/create-user-data-replication.provider';
+import { IUserDataReplication } from '@domain/providers/data-replications/users/user-data-replication.provider';
 import { ICreateUserRepository } from '@domain/repositories/users/create-user.repository';
 import { ICreateUserUseCase } from '@domain/use-cases/users/create-user.usecase';
 
@@ -8,7 +8,7 @@ import { IParamsCreateUserUseCaseDTO } from '@dtos/users/create-user.dto';
 export class CreateUserUseCase implements ICreateUserUseCase {
   constructor(
     private readonly userRepository: ICreateUserRepository,
-    private readonly dataReplications: ICreateUserDataReplication,
+    private readonly dataReplications: IUserDataReplication,
   ) {}
 
   public async execute({
@@ -22,7 +22,10 @@ export class CreateUserUseCase implements ICreateUserUseCase {
       name,
     });
 
-    this.dataReplications.createUser(userCreated);
+    this.dataReplications.user({
+      type: 'create',
+      user: userCreated,
+    });
 
     return {
       createdAt: userCreated.createdAt,

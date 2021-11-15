@@ -4,7 +4,7 @@ import { RequiredFieldsValidator } from '@application/validators/_shared/require
 import { AuthenticateUserValidator } from '@application/validators/authentications/authenticate-user.validator';
 
 import { IComparePasswordEncrypted } from '@domain/providers/encryption/compare-password-encrypted.provider';
-import { ITokenGenerator } from '@domain/providers/token/token-generator.provider';
+import { ITokenJwtGenerator } from '@domain/providers/token/jwt/token-jwt-generator.provider';
 import { IUuidGenerator } from '@domain/providers/uuidGenerator/uuid-generator.provider';
 import { ICreateFailureUserAccessLogRepository } from '@domain/repositories/user-access-log/create-failure-user-access-log.repository';
 import { ICreateSuccessUserAccessLogRepository } from '@domain/repositories/user-access-log/create-success-user-access-log.repository';
@@ -28,7 +28,7 @@ import { HttpStatusCode } from '@shared/utils/http-status-code';
 let authenticateUserController: IController;
 let authenticateUserUseCase: IAuthenticateUserUseCase;
 let authenticateUserValidator: IAuthenticateUserValidator;
-let tokenProvider: ITokenGenerator;
+let tokenProvider: ITokenJwtGenerator;
 let requiredFieldsValidator: IRequiredFieldsValidator;
 let fakeUsersRepository: ICreateUserRepository & IFindEmailUserRepository;
 let fakeUuidGenerator: IUuidGenerator;
