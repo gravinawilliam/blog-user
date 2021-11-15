@@ -1,3 +1,5 @@
+import { UserModel } from '@models/user.model';
+
 export interface IDeleteUserRepository {
-  delete(id: string): Promise<void>;
+  delete(user: UserModel): Promise<UserModel>;
 }

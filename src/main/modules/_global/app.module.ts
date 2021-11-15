@@ -9,24 +9,25 @@ import { envConfig } from '@main/config/env.config';
 
 import typeormConfig from '../../config/typeorm.config';
 import { AuthenticationsModule } from '../authentications/authentications.module';
+import { PasswordsModule } from '../passwords/passwords.module';
 import { CreateUserModule } from '../users/users.module';
+import { HealthRoute } from './health.route';
 
 @Module({
   imports: [
     TerminusModule,
     SentryModule.forRoot({
-      debug: true,
       dsn: envConfig.sentry.dsn,
-      logLevel: LogLevel.Debug,
-      environment: 'development',
-      tracesSampleRate: 1.0,
+      logLevel: LogLevel.Verbose,
+      environment: envConfig.sentry.environment,
     }),
     ConfigModule.forRoot(),
     TypeOrmModule.forRoot(typeormConfig),
     CreateUserModule,
     AuthenticationsModule,
+    PasswordsModule,
   ],
-  controllers: [],
+  controllers: [HealthRoute],
   providers: [],
 })
 export class AppModule {}

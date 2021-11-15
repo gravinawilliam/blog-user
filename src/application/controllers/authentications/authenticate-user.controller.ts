@@ -1,4 +1,4 @@
-import { IAuthenticateUserUsecase } from '@domain/use-cases/authentications/authenticate-user.usecase';
+import { IAuthenticateUserUseCase } from '@domain/use-cases/authentications/authenticate-user.usecase';
 import { IAuthenticateUserValidator } from '@domain/validators/authentications/authenticate-user.validator';
 
 import { IAuthenticateUserResponseDTO } from '@dtos/authentications/authenticate-user-response.dto';
@@ -10,7 +10,7 @@ import { ok } from '@shared/utils/http-response';
 
 export class AuthenticateUserController implements IController {
   constructor(
-    private readonly authenticateUserUseCase: IAuthenticateUserUsecase,
+    private readonly authenticateUserUseCase: IAuthenticateUserUseCase,
     private readonly authenticateUserValidator: IAuthenticateUserValidator,
   ) {}
 

@@ -1,24 +1,24 @@
-import { ICreateUserDataReplication } from '@domain/providers/data-replications/users/create-user-data-replication.provider';
+import { IUserDataReplication } from '@domain/providers/data-replications/users/user-data-replication.provider';
 import { ICreateUserRepository } from '@domain/repositories/users/create-user.repository';
-import { ICreateUserUsecase } from '@domain/use-cases/users/create-user.usecase';
+import { ICreateUserUseCase } from '@domain/use-cases/users/create-user.usecase';
 
-import { FakeUserRepository } from '@fakes/database/repositories/users.fake.repository';
+import { FakeUserRepository } from '@fakes/database/repositories/users-fake.repository';
 import { FakeUuidGenerator } from '@fakes/providers/uuid/uuid-generator.fake.provider';
 import { FakeDataReplicationsRepository } from '@fakes/replications/replications.repository';
 
-import { CreateUserUsecase } from '../create-user.usecase';
+import { CreateUserUseCase } from '../create-user.usecase';
 
-let createUserUseCase: ICreateUserUsecase;
+let createUserUseCase: ICreateUserUseCase;
 let fakeUsersRepository: ICreateUserRepository;
-let fakeDataReplications: ICreateUserDataReplication;
+let fakeDataReplications: IUserDataReplication;
 let fakeUuidGenerator: FakeUuidGenerator;
 
-describe('CreateUserUsecase', () => {
+describe('CreateUserUseCase', () => {
   beforeEach(() => {
     fakeUuidGenerator = new FakeUuidGenerator();
     fakeUsersRepository = new FakeUserRepository(fakeUuidGenerator);
     fakeDataReplications = new FakeDataReplicationsRepository();
-    createUserUseCase = new CreateUserUsecase(
+    createUserUseCase = new CreateUserUseCase(
       fakeUsersRepository,
       fakeDataReplications,
     );

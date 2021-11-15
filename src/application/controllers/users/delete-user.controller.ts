@@ -1,4 +1,4 @@
-import { IDeleteUserUsecase } from '@domain/use-cases/users/delete-user.usecase';
+import { IDeleteUserUseCase } from '@domain/use-cases/users/delete-user.usecase';
 import { IDeleteUserValidator } from '@domain/validators/users/delete-user.validator';
 
 import { IController } from '@shared/interfaces/controller.interface';
@@ -8,17 +8,17 @@ import { deleted } from '@shared/utils/http-response';
 
 export class DeleteUserController implements IController {
   constructor(
-    private readonly deleteUserUseCase: IDeleteUserUsecase,
+    private readonly deleteUserUseCase: IDeleteUserUseCase,
     private readonly deleteUserValidator: IDeleteUserValidator,
   ) {}
 
   async handle(httpRequest: IHttpRequest): Promise<IHttpResponse> {
+    const { authorization } = httpRequest.headers;
     const { password } = httpRequest.body;
-    const { user_id } = httpRequest.params;
 
     const userValidated = await this.deleteUserValidator.execute({
       password,
-      userId: user_id,
+      authorization,
     });
 
     if (userValidated.isLeft()) {
@@ -29,10 +29,12 @@ export class DeleteUserController implements IController {
       };
     }
 
+    const { user } = userValidated.value;
+
     await this.deleteUserUseCase.execute({
-      id: userValidated.value.id,
+      user,
     });
 
-    return deleted(true);
+    return deleted();
   }
 }

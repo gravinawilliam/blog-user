@@ -1,6 +1,6 @@
 import { Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
-// import * as helmet from 'helmet';
+import * as helmet from 'helmet';
 
 import { AllExceptionsFilter } from '@main/errors/all-exception.filter';
 
@@ -10,8 +10,8 @@ import { AppModule } from './main/modules/_global/app.module';
 const { port, nodeEnv } = envConfig;
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule, { cors: true });
-  // app.use(helmet());
+  const app = await NestFactory.create(AppModule);
+  app.use(helmet());
   app.useGlobalFilters(new AllExceptionsFilter());
   app.enableCors();
 

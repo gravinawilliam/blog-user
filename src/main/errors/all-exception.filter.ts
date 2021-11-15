@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import {
   Catch,
   ArgumentsHost,
@@ -10,9 +9,6 @@ import {
 
 @Catch()
 export class AllExceptionsFilter implements ExceptionFilter {
-  // private logger: Logger = new Logger('ExceptionFilter');
-
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   catch(exception: any, host: ArgumentsHost) {
     const ctx = host.switchToHttp();
     const request = ctx.getRequest();

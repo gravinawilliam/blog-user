@@ -1,21 +1,28 @@
+import { IUserDataReplication } from '@domain/providers/data-replications/users/user-data-replication.provider';
 import { ICreateUserRepository } from '@domain/repositories/users/create-user.repository';
 import { IDeleteUserRepository } from '@domain/repositories/users/delete-user.repository';
-import { IDeleteUserUsecase } from '@domain/use-cases/users/delete-user.usecase';
+import { IDeleteUserUseCase } from '@domain/use-cases/users/delete-user.usecase';
 
-import { FakeUserRepository } from '@fakes/database/repositories/users.fake.repository';
+import { FakeUserRepository } from '@fakes/database/repositories/users-fake.repository';
 import { FakeUuidGenerator } from '@fakes/providers/uuid/uuid-generator.fake.provider';
+import { FakeDataReplicationsRepository } from '@fakes/replications/replications.repository';
 
-import { DeleteUserUsecase } from '../delete-user.usecase';
+import { DeleteUserUseCase } from '../delete-user.usecase';
 
-let deleteUserUseCase: IDeleteUserUsecase;
+let deleteUserUseCase: IDeleteUserUseCase;
 let fakeUsersRepository: IDeleteUserRepository & ICreateUserRepository;
 let fakeUuidGenerator: FakeUuidGenerator;
+let fakeDataReplications: IUserDataReplication;
 
-describe('DeleteUserUsecase', () => {
+describe('DeleteUserUseCase', () => {
   beforeEach(() => {
     fakeUuidGenerator = new FakeUuidGenerator();
     fakeUsersRepository = new FakeUserRepository(fakeUuidGenerator);
-    deleteUserUseCase = new DeleteUserUsecase(fakeUsersRepository);
+    fakeDataReplications = new FakeDataReplicationsRepository();
+    deleteUserUseCase = new DeleteUserUseCase(
+      fakeUsersRepository,
+      fakeDataReplications,
+    );
   });
 
   it('should be able to delete user', async () => {
@@ -25,7 +32,7 @@ describe('DeleteUserUsecase', () => {
       password: '3k8EG923iA',
     });
     await deleteUserUseCase.execute({
-      id: user.id,
+      user,
     });
   });
 });
