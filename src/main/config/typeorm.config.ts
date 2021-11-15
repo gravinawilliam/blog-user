@@ -5,7 +5,9 @@ import { envConfig } from './env.config';
 
 const { dataBaseDefault, nodeEnv } = envConfig;
 
-const dir = nodeEnv === 'TEST' ? 'src' : 'dist/src';
+const dir =
+  // eslint-disable-next-line no-nested-ternary
+  nodeEnv === 'TEST' ? 'src' : nodeEnv === 'PROD' ? 'dist' : 'dist/src';
 const extension = nodeEnv === 'TEST' ? 'ts' : 'js';
 
 const typeormConfig: ConnectionOptions = {
