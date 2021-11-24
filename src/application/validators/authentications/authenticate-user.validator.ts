@@ -69,6 +69,7 @@ export class AuthenticateUserValidator implements IAuthenticateUserValidator {
       email: user.email,
       avatar: user.avatar,
       name: user.name,
+      isReviewer: user.isReviewer,
     });
   }
 }

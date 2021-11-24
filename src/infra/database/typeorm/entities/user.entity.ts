@@ -19,6 +19,9 @@ export class UserEntity extends BaseEntity implements UserModel {
   @Column()
   avatar: string;
 
+  @Column()
+  isReviewer: boolean;
+
   @OneToMany(() => UserAccessLogEntity, accessLog => accessLog.user)
   logsAccess: UserAccessLogEntity[];
 }

@@ -8,4 +8,6 @@ export class UserModel extends BaseModel {
   password: string;
 
   avatar: string;
+
+  isReviewer: boolean;
 }

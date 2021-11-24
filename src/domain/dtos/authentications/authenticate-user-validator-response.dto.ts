@@ -3,4 +3,5 @@ export interface IAuthenticateUserValidatorResponseDTO {
   name: string;
   email: string;
   avatar: string;
+  isReviewer: boolean;
 }
